@@ -1,0 +1,50 @@
+version: "3"
+services:
+  # signal-bot-0:
+  #   image: signal-bot
+  #   depends_on:
+  #     - mock_server
+  #   environment:
+  #     - SIGNAL_BOT_ID=0
+  #     - USER_NUMBER=0
+  #     - BACKEND_SEND_URL=http://mock_server
+  #     - BACKEND_SEND_PORT=8080
+  #     - BACKEND_RECEIVE_URL=http://mock_server
+  #     - BACKEND_RECEIVE_PORT=8080
+  #     - GROUP_ID=group.VC9hVWc3a1lDd3l2YnVXNFNUKzBSNHNMR0xqQkRGc3Y1UWx0NnlVb1Npaz0=
+
+  signal-bot-1:
+    image: signal-bot
+    depends_on:
+      - mock_server
+    environment:
+      - SIGNAL_BOT_ID=1
+      - USER_NUMBER=1
+      - BACKEND_SEND_URL=http://mock_server
+      - BACKEND_SEND_PORT=8080
+      - BACKEND_RECEIVE_URL=http://mock_server
+      - BACKEND_RECEIVE_PORT=8080
+      - GROUP_ID=group.VC9hVWc3a1lDd3l2YnVXNFNUKzBSNHNMR0xqQkRGc3Y1UWx0NnlVb1Npaz0=
+
+  # signal-bot-2:
+  #   image: signal-bot
+  #   depends_on:
+  #     - mock_server
+  #   environment:
+  #     - SIGNAL_BOT_ID=2
+  #     - USER_NUMBER=2
+  #     - BACKEND_SEND_URL=http://mock_server
+  #     - BACKEND_SEND_PORT=8080
+  #     - BACKEND_RECEIVE_URL=http://mock_server
+  #     - BACKEND_RECEIVE_PORT=8080
+  #     - GROUP_ID=group.VC9hVWc3a1lDd3l2YnVXNFNUKzBSNHNMR0xqQkRGc3Y1UWx0NnlVb1Npaz0=
+      
+  mock_server:
+    image: mock_server:latest
+    environment:
+      - MODE=normal #supported modes: json-rpc, native, normal
+      # - RUST_LOG=debug
+      #- AUTO_RECEIVE_SCHEDULE=0 22 * * * #enable this parameter on demand (see description below)
+    ports:
+      - "8080:8080" #map docker port 8080 to host port 8080.
+    restart: unless-stopped

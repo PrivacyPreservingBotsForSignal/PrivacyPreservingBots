@@ -1,0 +1,86 @@
+(
+    (var id)
+
+    (fundecl accountToId (account) 
+        (
+            (var res)
+            (= res account)
+
+            (if (== account "+4571678076")
+                (
+                    (= res "0")
+                )
+            )
+
+            (if (== account "+4571680459")
+                (
+                    (= res "1")
+                )
+            )
+
+            (if (== account "+4571683659")
+                (
+                    (= res "2")
+                )
+            )
+
+            (if (== account "+4571679451")
+                (
+                    (= res "3")
+                )
+            )
+
+            (if (== account "+4571683381")
+                (
+                    (= res "4")
+                )
+            )
+
+            (if (== account "+4571662267")
+                (
+                    (= res "5")
+                )
+            )
+
+            (if (== account "+4571659403")
+                (
+                    (= res "6")
+                )
+            )
+
+            (if (== account "+4571654937")
+                (
+                    (= res "7")
+                )
+            )
+
+            (if (== account "+4571657961")
+                (
+                    (= res "8")
+                )
+            )
+
+            (if (== account "+4571655512")
+                (
+                    (= res "9")
+                )
+            )
+
+            (res)
+        )
+    )
+
+
+    (= id (call accountToId account))
+
+    (call out (+ "Joining: " account))
+    (call capekSleep 6000)
+
+    
+
+    (if (== id "0")
+        (
+            (call out (+ "Counter: " 1))
+        )
+    )
+)

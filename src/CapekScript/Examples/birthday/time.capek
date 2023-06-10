@@ -1,0 +1,14 @@
+(
+    (var dayMonth)
+    (var birthday)
+
+    (= dayMonth (call posixTimeToDDMM time))
+    (= birthday (call objGetKey birthdays dayMonth))
+
+    (ifelse (call isUndefined birthday) true
+        (
+            (call client birthday)
+            (call objDelKey birthdays dayMonth)
+        )
+    )
+)

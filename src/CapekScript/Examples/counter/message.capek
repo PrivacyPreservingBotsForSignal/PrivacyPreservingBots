@@ -1,0 +1,8 @@
+(
+    (if (== msg "increment")
+        (
+            (= counter (+ counter 1))
+            (call print (+ "Counter is now at: " counter))
+        )
+    )
+)

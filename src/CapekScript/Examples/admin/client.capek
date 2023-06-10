@@ -1,0 +1,31 @@
+(
+    (var userList)
+    (var user)
+    (var channel)
+    (var message)
+    (var permission)
+
+    (= userList (call objGetKey arg "userList"))
+    (= user (call objGetKey arg "user"))
+    (= channel (call objGetKey arg "channel"))
+    (= message (call objGetKey arg "message"))
+
+    (= permission (call objGetKey userList account))
+
+    (if (call isUndefined permission) 
+        (
+            (= permission 0)
+        )
+    )
+
+
+    (if (> permission 0) 
+        (
+            (var messagePrefix)
+        
+            (call print (+ "Received message in channel: " (call objGetKey channel "channelName")))
+            (= messagePrefix (+ (+ "User: " user) " said: "))
+            (call print (+ messagePrefix message))
+        )
+    )
+)

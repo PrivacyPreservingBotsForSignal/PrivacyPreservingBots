@@ -1,0 +1,131 @@
+(
+    (var msgArr)
+    (var command)
+
+    (= msgArr (call splitWhiteSpace msg))
+    (= command (call getNth msgArr 0))
+
+    (if (== command "!createChannel") 
+        (
+            (var channelName)
+            (= channelName (call getNth msgArr 1))
+
+            (if (call isGlobalAdmin account)
+                (
+                    (call addChannel channelName)
+                )
+            )
+
+        )
+    )
+
+    (if (== command "!deleteChannel") 
+        (
+            (var channelName)
+            (= channelName (call getNth msgArr 1))
+
+            (if ((call isGlobalAdmin account))
+                (
+                    (call removeChannel channelName)
+                )
+            )
+        )
+    )
+
+    (if (== command "!grantUser")
+        (
+            (var channelName)
+            (var userName)
+            (var permission)
+
+            (= channelName (call getNth msgArr 1))
+            (= userName (call getNth msgArr 2))
+            (= permission (call getNth msgArr 3))
+
+            (if ((call isChannelAdmin account channelName))
+                (
+                    (call grantUser channelName userName permission)
+                )
+            )
+        )
+    )
+
+    (if (== command "!revokeUser")
+        (
+            (var channelName)
+            (var userName)
+
+            (= channelName (call getNth msgArr 1))
+            (= userName (call getNth msgArr 2))
+
+            (if ((call isChannelAdmin account channelName))
+                (
+                    (call revokeUser channelName userName)
+                )
+            )
+        )
+    )
+
+    (if (== command "!subscribe")
+        (
+            (var channelName)
+            (= channelName (call getNth msgArr 1))
+
+            (call grantUser channelName account 1)
+        )
+    )
+
+    (if (== command "!unsubscribe")
+        (
+            (var channelName)
+            (= channelName (call getNth msgArr 1))
+
+            (call revokeUser channelName account)
+        )
+    )
+
+    (if (== command "!addGlobalAdmin")
+        (
+            (var user)
+            (= user (call getNth msgArr 1))
+
+            (if ((call isWinnieThePooh account))
+                (
+                    (call addGlobalAdmin user)
+                )
+            )
+        )
+    )
+
+    (if (== command "!removeGlobalAdmin")
+        (
+            (var user)
+            (= user (call getNth msgArr 1))
+
+            (if ((call isWinnieThePooh account))
+                (
+                    (call removeGlobalAdmin user)
+                )
+            )
+        )
+    )
+
+    (if (== command "!send")
+        (
+            (var channelName)
+            (var message)
+            (var userPermission)
+
+            (= channelName (call getNth msgArr 1))
+            (= message (call getNth msgArr 2))
+            
+            (= userPermission (call getUserPermission channelName account))
+
+            (if (> userPermission 2)
+                (
+                    (call send channelName account message)
+                )
+            )
+        )
+    )
+)

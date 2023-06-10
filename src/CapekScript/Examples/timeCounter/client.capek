@@ -1,0 +1,8 @@
+(
+    (if (== (call atoi id) (- noOfBots 1)) 
+        (
+            (= counter (+ counter 1))
+            (call out (+ "Counter: " counter))
+        )
+    )
+)

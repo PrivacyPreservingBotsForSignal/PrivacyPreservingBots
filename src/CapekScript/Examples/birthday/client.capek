@@ -1,0 +1,10 @@
+(
+    (ifelse ((== arg account)) 
+        (
+            (call print "Congratulations! You have a birthday today!")
+        )
+        (
+            (call print (+ arg " has a birthday today, please wish them a happy birthday!"))
+        )
+    )
+)

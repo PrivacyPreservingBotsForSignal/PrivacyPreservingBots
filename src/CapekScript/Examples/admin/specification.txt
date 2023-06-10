@@ -1,0 +1,34 @@
+Overall Architecture:
+- Admins
+    - Supreme leader (inherite from global admins)
+        - Can do anything
+            - Can grant/revoke global Admins (!grant/!revoke <user>)
+    - Global admins
+        - Can do administrate all channels (inherite from channel specific admins)
+            - Can create/delete channels (!createChannel/!deleteChannel <channel>)
+            - Can grant/revoke channel admins
+    - Channel specific admins
+        - Can administrate their Channel
+            - Can modify user list
+                - Can add/remove users (!add/!remove <channel> <user>)
+            - Can modify permissions of each user (except other admins) (!permission <channel> <user> <permission>)
+                - 0: read
+                - 1: write
+                - 2: admin
+
+- Channels
+    - When created:
+        - User list is empty
+    - permissions
+        - Each user has a permission level
+            - 0: read
+            - 1: write
+            - 2: admin
+
+- users
+    - Are able to send messages (!send <channel> <message>)
+        - If they have the permission to write the channel
+        - Otherwise message will be ignored
+    - Are able to receive messages
+        - If they have the permission to read the channel
+        - If message is valid (has correct permissions)

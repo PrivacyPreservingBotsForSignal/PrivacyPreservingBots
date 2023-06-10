@@ -1,0 +1,43 @@
+(
+    (var shouldTrigger)
+    ; The following sets the boolean shouldTrigger  based on whether or not the message begins with !eval (substring matches beginning at index 0)
+    (= shouldTrigger (== (call getIndexOfSubstringStart msg "!eval") 0))
+    (if (shouldTrigger) (
+        ; For this version of the bot we only support addition and subtraction
+        ; We create a copy of msg such that we can manipulate the string while maintaining the original
+        ; We specifically use the copy to get the numbers from the string and the original for the operator
+        (var msgCopy)
+        (= msgCopy msg)
+        (var firstNumber)
+        (var secondNumber)
+        (= firstNumber (call getFirstComponentFromString msgCopy "[0-9]+"))
+        (if (== firstNumber "") (
+            (call print ("Invalid input: Couldn't find a number")))
+        )
+        ; splits msgCopy on the firstNumber and place everything after in the variable named msgCopy
+        ; This removes the first value from the string for the second search
+        (call split msgCopy firstNumber "msgCopy")
+        (= secondNumber (call getFirstComponentFromString msgCopy "[0-9]+"))
+        (if (== secondNumber "") (
+            (call print ("Invalid input: Couldn't find a second number")))
+        )
+        (= firstNumber (call atoi firstNumber))
+        (= secondNumber (call atoi secondNumber))
+        (var operator)
+        (= operator (call getFirstComponentFromString msg "[\+\-]+"))
+        (var result)
+        (ifelse (== operator "+") (
+            (= result (+ firstNumber secondNumber))
+            (call print "The answer is: ")
+            (call print (call numToStr result))
+            ) 
+            (ifelse (== operator "-") (
+                    (= result (- firstNumber secondNumber))
+                    (call print "The answer is: ")
+                    (call print (call numToStr result))
+                )
+                (call print ("Invalid input: Couldn't find an operator, or operator isn't + or -"))
+            )
+        )
+    ))
+)

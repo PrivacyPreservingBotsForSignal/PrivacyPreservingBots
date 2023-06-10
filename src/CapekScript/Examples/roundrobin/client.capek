@@ -1,0 +1,21 @@
+(
+    (var msgArr)
+    (var prefix)
+
+    (= msgArr (call splitWhiteSpace arg))
+    (= prefix (call getNth msgArr 0))
+
+    (if (== prefix "Counter:")
+        (
+            (var counter)
+            (= counter (call getNth msgArr 1))
+            (= counter (call atoi counter))
+
+            (if (== id (% counter noOfBots)) 
+                (
+                    (call out (+ "Counter: " (+ counter 1)))
+                )
+            )
+        )
+    )
+)

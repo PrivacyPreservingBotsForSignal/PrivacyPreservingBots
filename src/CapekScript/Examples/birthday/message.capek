@@ -1,0 +1,16 @@
+(
+    (var msgArr)
+    (var command)
+
+    (= msgArr (call splitWhiteSpace msg))
+    (= command (call getNth msgArr 0))
+
+    (if (== command "!birthday")
+        (
+            (var dayMonth)
+
+            (= dayMonth (call getNth msgArr 1))
+            (call objSetKey birthdays dayMonth account)
+        )
+    )
+)

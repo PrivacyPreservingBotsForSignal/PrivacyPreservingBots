@@ -1,0 +1,122 @@
+(
+    (var winnieThePooh)
+    (var globalAdmins)
+    (var channels)
+
+    (fundecl createChannel ()
+        (
+            (var channel)
+            (= channel (call newObj))
+            (call objSetKey channel "userList" (call newObj))
+            (channel)
+        )
+    )
+
+    (fundecl addChannel (channelName)
+        (
+            (var channel)
+            (= channel (call createChannel))
+            (call objSetKey channel "channelName" channelName)
+            (call objSetKey channels channelName channel)
+        )
+    )
+
+    (fundecl removeChannel (channelName)
+        (
+            (call objDelKey channels channelName)
+        )
+    )
+
+    (fundecl grantUser (channelName user permission)
+        (
+            (var userList)
+            (var channel)
+            (= channel (call objGetKey channels channelName))
+            (= userList (call objGetKey channel "userList"))
+
+            (call objSetKey userList user permission)
+        )
+    )
+
+    (fundecl revokeUser (channelName user)
+        (
+            (var userList)
+            (= userList (call objGetKey channelName "userList"))
+
+            (call objDelKey userList user)
+        )
+    )
+
+    (fundecl getUserPermission (channelName user)
+        (
+            (ifelse (call isGlobalAdmin user) 3
+                (
+                    (var channel)
+                    (var userList)
+                    (var permission)
+
+                    (= channel (call objGetKey channels channelName))
+                    (= userList (call objGetKey channel "userList"))
+
+                    (= permission (call objGetKey userList user))
+
+                    (ifelse (call isUndefined permission) (0) (permission))
+                )
+            )
+        )
+    )
+
+    (fundecl addGlobalAdmin (user)
+        (
+            (call setAdd globalAdmins user)
+        )
+    )
+
+    (fundecl removeGlobalAdmin (user)
+        (
+            (call setDel globalAdmins user)
+        )
+    )
+
+    (fundecl isWinnieThePooh (user)
+        (
+            (== user winnieThePooh)
+        )
+    )
+
+    (fundecl isGlobalAdmin (user)
+        (
+            (|| (call isWinnieThePooh user) (call setHas globalAdmins user))
+        )
+    )
+
+    (fundecl isChannelAdmin (channel user)
+        (
+            (|| (call isGlobalAdmin user) (== (call getUserPermission channel user) 3))
+        )
+    )
+
+    (fundecl send (channelName user message)
+        (
+            (var arg)
+            (var userList)
+            (var channel)
+
+            (= channel (call objGetKey channels channelName))
+            (= userList (call objGetKey channel "userList"))
+
+            (= arg (call newObj))
+            (call objSetKey arg "channel" channel)
+            (call objSetKey arg "user" user)
+            (call objSetKey arg "message" message)
+            (call objSetKey arg "userList" userList)
+
+            (call client arg)
+        )
+        
+    )
+
+    (= winnieThePooh "0")
+    (= globalAdmins (call newSet))
+    (= channels (call newObj))
+)

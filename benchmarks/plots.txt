@@ -1,0 +1,4 @@
+1. Time to 100 counter per number of bots: 2-100 bots, capek vs non-capek
+2. Signal vs Mock (n bots, where n is most interesting): Y-axis: total count, X-axis: time
+3. Election vs non-election, 3, 50, 100 bots: Y-axis: total count, X-axis: time
+4. Signal vs Mock, time to 100 counter per number of bots: 2-10 bots

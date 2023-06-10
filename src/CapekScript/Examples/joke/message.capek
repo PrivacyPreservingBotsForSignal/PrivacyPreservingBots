@@ -1,0 +1,21 @@
+(
+    (if (== msg "!joke")
+        (
+            (var joke)
+            (var setup)
+            (var punchline)
+            (var response)
+
+            (= joke (call fetch "https://official-joke-api.appspot.com/random_joke"))
+            (= joke (call strToObj joke))
+            (= setup (call objGetKey joke "setup"))
+            (= punchline (call objGetKey joke "punchline"))
+
+            (= response (+ "Setup: " setup))
+            (= response (+ response " Punchline: "))
+            (= response (+ response punchline))
+
+            (call print response)
+        )
+    )
+)
